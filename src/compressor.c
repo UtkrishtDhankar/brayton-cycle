@@ -11,3 +11,20 @@ struct compressor {
 	double t_out;		// the temperature of air flowing out,
 				// in Kelvin.
 };
+
+/*
+ * Computes and returns the number of stages to reach given pressure ratio rp.
+ */
+int compute_number_of_stages(double desired_rp)
+{
+	int n = 1;
+
+	double current_rp = max_pressure_ratio;
+
+	while (current_rp < desired_rp) {
+		current_rp *= max_pressure_ratio;
+		n++;
+	}
+
+	return n;
+}
