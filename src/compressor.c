@@ -15,7 +15,7 @@ struct compressor {
 /*
  * Computes and returns the number of stages to reach given pressure ratio rp.
  */
-int compute_number_of_stages(double desired_rp)
+int find_num_stages(double desired_rp)
 {
 	int n = 1;
 
