@@ -12,6 +12,22 @@ struct compressor {
 				// in Kelvin.
 };
 
+
+
+/*
+ * Prints the details of the compressor
+ */
+void print_compressor(struct compressor c)
+{
+	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f K\n",
+		c.p_in,
+		c.t_in,
+		c.p_out,
+		c.t_out
+	);
+}
+
+
 /*
  * Computes and returns the number of stages to reach given pressure ratio rp.
  */
