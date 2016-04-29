@@ -51,7 +51,8 @@ struct compressor *simulate_compressor(
 	int num_stages,
 	double p_atm,
 	double t_inlet,
-	double gamma)
+	double gamma,
+	double rp)
 {
 	struct compressor *cs = malloc (num_stages * sizeof(*cs));
 
@@ -64,7 +65,7 @@ struct compressor *simulate_compressor(
 		cs[i].p_in = p_prev;
 		cs[i].t_in = t_prev;
 
-		cs[i].p_out = cs[i].p_in * 1.2;
+		cs[i].p_out = cs[i].p_in * rp;
 
 		// assuming that compressor is adiabatic
 		cs[i].t_out = pow (cs[i].p_in / cs[i].p_out, 1 - gamma)
