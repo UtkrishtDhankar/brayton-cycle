@@ -68,7 +68,7 @@ struct compressor *simulate_compressor(
 		cs[i].p_out = cs[i].p_in * rp;
 
 		// assuming that compressor is adiabatic
-		cs[i].t_out = pow (cs[i].p_in / cs[i].p_out, 1 - gamma)
+		cs[i].t_out = pow (1 / rp, 1 - gamma)
 			* cs[i].t_in;
 
 		p_prev = cs[i].p_out;
