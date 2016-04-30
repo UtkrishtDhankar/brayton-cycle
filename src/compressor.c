@@ -16,6 +16,10 @@ struct compressor {
 
 	double w_req;		// the amount of work required in Joules per
 				// second.
+	double exergy_gain;	// gain in exergy of the gas, in Joules per
+				// second.
+	double exergy_loss;	// loss of exergy in the stage, in Joules per
+				// second.
 };
 
 
@@ -25,12 +29,14 @@ struct compressor {
  */
 void print_compressor(struct compressor c)
 {
-	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f K\tW_req = %.2f J/s\n",
+	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f K\tW_req = %.2f J/s\tX_gain = %.2f J/s\tX_loss = %.2f J/s\n",
 		c.p_in,
 		c.t_in,
 		c.p_out,
 		c.t_out,
-		c.w_req
+		c.w_req,
+		c.exergy_gain,
+		c.exergy_loss
 	);
 }
 
@@ -88,6 +94,9 @@ struct compressor *simulate_compressor(
 		cs[i].w_req = (1 / stage_efficiency)
 			* (gas_flow_rate / molecular_mass)
 			* r_univ * (cs[i].t_out - cs[i].t_in)/ (gamma - 1);
+
+		cs[i].exergy_gain = stage_efficiency * cs[i].w_req;
+		cs[i].exergy_loss = cs[i].w_req - cs[i].exergy_gain;
 	}
 
 	return cs;
