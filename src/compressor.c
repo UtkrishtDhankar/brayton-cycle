@@ -61,7 +61,8 @@ struct compressor *simulate_compressor(
 	double t_inlet,		// the inlet temp, in K.
 	double gamma,		// the gamma of the gas.
 	double gas_flow_rate,	// the rate at which gas flows in, in kg/s.
-	double molecular_mass	// mass of 1 mol of gas molecules, in kg.
+	double molecular_mass,	// mass of 1 mol of gas molecules, in kg.
+	double stage_efficiency	// efficiency of each stage.
 ) {
 	struct compressor *cs = malloc (num_stages * sizeof(*cs));
 
@@ -83,8 +84,10 @@ struct compressor *simulate_compressor(
 		p_prev = cs[i].p_out;
 		t_prev = cs[i].t_out;
 
-		cs[i].w_req = (gas_flow_rate / molecular_mass) * r_univ
-				* (cs[i].t_out - cs[i].t_in)/ (gamma - 1);
+		// Assuming compressor work is integral Vdp, with ineficiencies.
+		cs[i].w_req = (1 / stage_efficiency)
+			* (gas_flow_rate / molecular_mass)
+			* r_univ * (cs[i].t_out - cs[i].t_in)/ (gamma - 1);
 	}
 
 	return cs;
