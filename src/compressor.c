@@ -81,10 +81,10 @@ struct compressor *simulate_compressor(
 		cs[i].p_in = p_prev;
 		cs[i].t_in = t_prev;
 
-		cs[i].p_out = cs[i].p_in * 1.2;
+		cs[i].p_out = cs[i].p_in * max_pressure_ratio;
 
 		// assuming that compressor is adiabatic
-		cs[i].t_out = pow (cs[i].p_in / cs[i].p_out, 1 - gamma)
+		cs[i].t_out = pow (1 / max_pressure_ratio, 1 - gamma)
 			* cs[i].t_in;
 
 		p_prev = cs[i].p_out;
