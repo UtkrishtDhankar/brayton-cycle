@@ -1,3 +1,6 @@
+#ifndef COMPRESSOR_H
+#define COMPRESSOR_H
+
 const double efficiency = 0.98;	// efficiency of combustion
 const double c_fuel = 4200000;	// calorific value of fuel in J/kg K.
 const double c_air = 1005;	// specific heat of air at const p in J/kg K.
@@ -23,3 +26,5 @@ struct boiler simulate_boiler(
 	double t_out,		// inlet temperature of the gas in K
 	double gas_flow_rate	// flow rate of the gas in kg/s
 );
+
+#endif
