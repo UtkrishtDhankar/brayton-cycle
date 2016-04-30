@@ -3,8 +3,7 @@ const double c_fuel = 4200000;	// calorific value of fuel in J/kg K.
 const double c_air = 1005;	// specific heat of air at const p in J/kg K.
 
 struct boiler {
-	double p_in;
-	double p_out;
+	double p;
 
 	double t_in;
 	double t_out;
