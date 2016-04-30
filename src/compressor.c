@@ -3,6 +3,7 @@
 #include <math.h>
 
 const double max_pressure_ratio = 1.2;
+const double r_univ = 8.314;		// in SI units.
 
 struct compressor {
 	double p_in; 		// the pressure flowing in, in Pascals.
@@ -12,6 +13,13 @@ struct compressor {
 				// in Kelvin.
 	double t_out;		// the temperature of air flowing out,
 				// in Kelvin.
+
+	double w_req;		// the amount of work required in Joules per
+				// second.
+	double exergy_gain;	// gain in exergy of the gas, in Joules per
+				// second.
+	double exergy_loss;	// loss of exergy in the stage, in Joules per
+				// second.
 };
 
 
@@ -21,11 +29,14 @@ struct compressor {
  */
 void print_compressor(struct compressor c)
 {
-	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f K\n",
+	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f K\tW_req = %.2f J/s\tX_gain = %.2f J/s\tX_loss = %.2f J/s\n",
 		c.p_in,
 		c.t_in,
 		c.p_out,
-		c.t_out
+		c.t_out,
+		c.w_req,
+		c.exergy_gain,
+		c.exergy_loss
 	);
 }
 
@@ -47,13 +58,18 @@ int find_num_stages(double desired_rp)
 	return n;
 }
 
+/*
+ * Simulates the compressor for given inputs.
+ */
 struct compressor *simulate_compressor(
-	int num_stages,
-	double p_atm,
-	double t_inlet,
-	double gamma,
-	double rp)
-{
+	int num_stages,		// the number of stages of the compressor.
+	double p_atm,		// the inlet pressure, in Pa.
+	double t_inlet,		// the inlet temp, in K.
+	double gamma,		// the gamma of the gas.
+	double gas_flow_rate,	// the rate at which gas flows in, in kg/s.
+	double molecular_mass,	// mass of 1 mol of gas molecules, in kg.
+	double stage_efficiency	// efficiency of each stage.
+) {
 	struct compressor *cs = malloc (num_stages * sizeof(*cs));
 
 	// input pressure and temperature from previous compressor.
@@ -73,6 +89,14 @@ struct compressor *simulate_compressor(
 
 		p_prev = cs[i].p_out;
 		t_prev = cs[i].t_out;
+
+		// Assuming compressor work is integral Vdp, with ineficiencies.
+		cs[i].w_req = (1 / stage_efficiency)
+			* (gas_flow_rate / molecular_mass)
+			* r_univ * (cs[i].t_out - cs[i].t_in)/ (gamma - 1);
+
+		cs[i].exergy_gain = stage_efficiency * cs[i].w_req;
+		cs[i].exergy_loss = cs[i].w_req - cs[i].exergy_gain;
 	}
 
 	return cs;
