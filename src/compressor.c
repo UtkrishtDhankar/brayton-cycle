@@ -47,12 +47,17 @@ int find_num_stages(double desired_rp)
 	return n;
 }
 
+/*
+ * Simulates the compressor for given inputs.
+ */
 struct compressor *simulate_compressor(
-	int num_stages,
-	double p_atm,
-	double t_inlet,
-	double gamma)
-{
+	int num_stages,		// the number of stages of the compressor.
+	double p_atm,		// the inlet pressure, in Pa.
+	double t_inlet,		// the inlet temp, in K.
+	double gamma,		// the gamma of the gas.
+	double gas_flow_rate,	// the rate at which gas flows in, in kg/s.
+	double molecular_mass	// mass of 1 mol of gas molecules, in kg.
+) {
 	struct compressor *cs = malloc (num_stages * sizeof(*cs));
 
 	// input pressure and temperature from previous compressor.
