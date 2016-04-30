@@ -3,6 +3,7 @@
 #include <math.h>
 
 const double max_pressure_ratio = 1.2;
+const double r_univ = 8.314;		// in SI units.
 
 struct compressor {
 	double p_in; 		// the pressure flowing in, in Pascals.
@@ -12,6 +13,9 @@ struct compressor {
 				// in Kelvin.
 	double t_out;		// the temperature of air flowing out,
 				// in Kelvin.
+
+	double w_req;		// the amount of work required in Joules per
+				// second for 1 kg of gas.
 };
 
 
@@ -21,11 +25,12 @@ struct compressor {
  */
 void print_compressor(struct compressor c)
 {
-	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f K\n",
+	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f K\tW_req = %.2f J/s\n",
 		c.p_in,
 		c.t_in,
 		c.p_out,
-		c.t_out
+		c.t_out,
+		c.w_req
 	);
 }
 
@@ -77,6 +82,9 @@ struct compressor *simulate_compressor(
 
 		p_prev = cs[i].p_out;
 		t_prev = cs[i].t_out;
+
+		cs[i].w_req = (gas_flow_rate / molecular_mass) * r_univ
+				* (cs[i].t_out - cs[i].t_in)/ (gamma - 1);
 	}
 
 	return cs;
