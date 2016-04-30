@@ -15,7 +15,7 @@ struct compressor {
 				// in Kelvin.
 
 	double w_req;		// the amount of work required in Joules per
-				// second for 1 kg of gas.
+				// second.
 };
 
 
