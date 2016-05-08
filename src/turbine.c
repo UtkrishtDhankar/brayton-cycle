@@ -2,8 +2,6 @@
 
 static double r_univ = 8.314;		// in SI units.
 static int num_stages = 8;
-static double eta_isen = 0.92;		//Isentropic efficiency
-static double eta_comb = 0.98;		//Efficiency of combustion
 static double p_final = 108000;		//Final pressure.
 /*
  * Prints the details of the turbine
