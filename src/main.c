@@ -47,5 +47,6 @@ int main()
 		print_turbine(t_stages[i]);
 
 	free(c_stages);
+	free(t_stages);
 	return 0;
 }
