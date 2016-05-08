@@ -1,5 +1,8 @@
 #include "compressor.h"
 
+double max_pressure_ratio = 1.2;
+static double r_univ = 8.314;		// in SI units.
+
 /*
  * Prints the details of the compressor
  */

@@ -5,9 +5,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-const double max_pressure_ratio = 1.2;
-const double r_univ = 8.314;		// in SI units.
-
 struct compressor {
 	double p_in; 		// the pressure flowing in, in Pascals.
 	double p_out;		// the pressure flowing out, in Pascals.

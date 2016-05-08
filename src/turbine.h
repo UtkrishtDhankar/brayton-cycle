@@ -5,13 +5,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-const double max_pressure_ratio = 1.2;
-const double r_univ = 8.314;		// in SI units.
-const int num_stages = 8;
-const double eta_isen = 0.92;		//Isentropic efficiency
-const double eta_comb = 0.98;		//Efficiency of combustion
-const double p_final = 108000;		//Final pressure.
-
 struct turbine {
 	double p_in;            // the pressure flowing in, in Pascals.
 	double p_out;           // the pressure flowing out, in Pascals.
