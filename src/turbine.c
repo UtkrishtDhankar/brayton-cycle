@@ -9,7 +9,7 @@ static double p_final = 108000;		//Final pressure.
 void print_turbine(struct turbine turb)
 {
 	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f "
-		"K\tW_out = %.2f J/s\tX_gain = %.2f J/s\tX_loss = %.2f J/s\n",
+		"K\tW_out = %.2f J/s\tX_loss = %.2f J/s\tX_dest = %.2f J/s\n",
 		turb.p_in,
 		turb.t_in,
 		turb.p_out,
@@ -62,7 +62,7 @@ struct turbine *simulate_turbine(
 		t_prev = tb[i].t_out;
 
 		// Assuming turbine work is integral Vdp, with ineficiencies.
-		tb[i].w_out = (1 / stage_efficiency)
+		tb[i].w_out = - (stage_efficiency)
 				* (gas_flow_rate / molecular_mass)
 				* r_univ * (tb[i].t_out - tb[i].t_in) * gamma / (gamma - 1);
 
