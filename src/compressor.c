@@ -63,7 +63,7 @@ struct compressor *simulate_compressor(
 		cs[i].p_out = cs[i].p_in * max_pressure_ratio;
 
 		// assuming that compressor is adiabatic
-		cs[i].t_out = pow (1 / max_pressure_ratio, 1 - gamma)
+		cs[i].t_out = pow (1 / max_pressure_ratio, (1 - gamma) / gamma)
 			* cs[i].t_in;
 
 		p_prev = cs[i].p_out;
@@ -72,7 +72,8 @@ struct compressor *simulate_compressor(
 		// Assuming compressor work is integral Vdp, with ineficiencies.
 		cs[i].w_req = (1 / stage_efficiency)
 			* (gas_flow_rate / molecular_mass)
-			* r_univ * (cs[i].t_out - cs[i].t_in)/ (gamma - 1);
+			* r_univ * (cs[i].t_out - cs[i].t_in) * gamma
+                        / (gamma - 1);
 
 		cs[i].exergy_gain = stage_efficiency * cs[i].w_req;
 		cs[i].exergy_loss = cs[i].w_req - cs[i].exergy_gain;
