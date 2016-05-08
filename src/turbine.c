@@ -25,7 +25,7 @@ void print_turbine(struct turbine turb)
  */
 double press_rat(double p_comp)
 {
-	return pow(p_final / p_comp, 1 / num_stages);
+	return pow(p_final / p_comp, 1.0 / num_stages);
 }
 
 /*
