@@ -14,7 +14,7 @@ struct turbine {
 	double t_out;           // the temperature of air flowing out,
 				// in Kelvin.
 
-	double w_req;           // the amount of work required in Joules per
+	double w_out;           // the amount of work required in Joules per
 				// second.
 	double exergy_gain;     // gain in exergy of the gas, in Joules per
 				// second.
