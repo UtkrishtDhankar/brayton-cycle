@@ -46,6 +46,22 @@ int main()
 	for (int i = 0; i < 8; i++)
 		print_turbine(t_stages[i]);
 
+	double n;
+	double w_c = 0;
+	double w_t = 0;
+	double heat_added;
+
+	for (int i = 0; i < c_num_stages; i++)
+		w_c += c_stages[i].w_req;
+	for (int i = 0; i < 8; i++)
+		w_t += t_stages[i].w_out;
+	heat_added = 4200000 * b.req_flow_rate;
+
+	n = (w_t - w_c) / heat_added;
+
+	printf("\n\nw_t = %lf\t w_c = %lf\t heat added = %lf\n", w_t, w_c, heat_added);
+	printf("efficiency = %lf\n", n);
+
 	free(c_stages);
 	free(t_stages);
 	return 0;
