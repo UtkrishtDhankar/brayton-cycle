@@ -15,8 +15,8 @@ void print_turbine(struct turbine turb)
 		turb.p_out,
 		turb.t_out,
 		turb.w_out,
-		turb.exergy_gain,
-		turb.exergy_loss
+		turb.exergy_loss,
+		turb.exergy_dest
 		);
 }
 
@@ -66,8 +66,8 @@ struct turbine *simulate_turbine(
 				* (gas_flow_rate / molecular_mass)
 				* r_univ * (tb[i].t_out - tb[i].t_in) * gamma / (gamma - 1);
 
-		tb[i].exergy_gain = stage_efficiency * tb[i].w_out;
-		tb[i].exergy_loss = tb[i].w_out - tb[i].exergy_gain;
+		tb[i].exergy_loss = (1/ stage_efficiency) * tb[i].w_out;
+		tb[i].exergy_dest = tb[i].exergy_loss - tb[i].w_out;
 	}
 
 	return tb;
