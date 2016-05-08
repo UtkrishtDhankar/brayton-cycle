@@ -8,7 +8,7 @@ const double c_air = 1005;      // Specific heat of air at const p in J/kg K.
 /*
    *Calculates the required flow rate for the gas
  */
-struct boiler {
+struct heat_exchanger {
 	double p;               // Pressure of heat exchanger in Pa.
 
 	double t_in;            // Temperature of gas entering the heat exchanger in K.
@@ -26,7 +26,7 @@ double calc_fuel_flow_rate(
 /*
    *Simulates the heat-exchanger for the given inputs.
  */
-struct boiler simulate_boiler(
+struct heat_exchanger simulate_heat_exchanger(
 	double t_in,            // Temperature of gas entering from compressor in K.
 	double p,               // Pressure at which to use the heat exchanger.
 	double t_out,           // Temperature of gas leaving the heat exchanger in K.
