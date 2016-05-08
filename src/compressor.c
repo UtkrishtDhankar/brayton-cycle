@@ -1,28 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
-const double max_pressure_ratio = 1.2;
-const double r_univ = 8.314;		// in SI units.
-
-struct compressor {
-	double p_in; 		// the pressure flowing in, in Pascals.
-	double p_out;		// the pressure flowing out, in Pascals.
-
-	double t_in;		// the temperature of air flowing in,
-				// in Kelvin.
-	double t_out;		// the temperature of air flowing out,
-				// in Kelvin.
-
-	double w_req;		// the amount of work required in Joules per
-				// second.
-	double exergy_gain;	// gain in exergy of the gas, in Joules per
-				// second.
-	double exergy_loss;	// loss of exergy in the stage, in Joules per
-				// second.
-};
-
-
+#include "compressor.h"
 
 /*
  * Prints the details of the compressor
