@@ -15,20 +15,20 @@ double calc_fuel_flow_rate(
 /*
    *Simulates the heat-exchanger for the given inputs.
  */
-struct boiler simulate_boiler(
+struct heat_exchanger simulate_heat_exchanger(
 	double t_in,            // Temperature of gas entering from compressor in K.
 	double p,               // Pressure at which to use the heat exchanger.
 	double t_out,           // Temperature of gas leaving the heat exchanger in K.
 	double gas_flow_rate    // Flow rate of the gas in kg/s.
 	)
 {
-	struct boiler b;
+	struct heat_exchanger he;
 
-	b.p = p;
-	b.t_in = t_in;
-	b.t_out = t_out;
+	he.p = p;
+	he.t_in = t_in;
+	he.t_out = t_out;
 
-	b.req_flow_rate = calc_fuel_flow_rate(t_in, t_out, gas_flow_rate);
+	he.req_flow_rate = calc_fuel_flow_rate(t_in, t_out, gas_flow_rate);
 
-	return b;
+	return he;
 }
