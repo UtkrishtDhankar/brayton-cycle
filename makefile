@@ -28,7 +28,7 @@ clean-objects:
 
 debug: CFLAGS+=$(DFLAGS)
 debug: LFLAGS+=$(DFLAGS)
-debug: all
+debug: brayton-cycle
 
 brayton-cycle: $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS) -o brayton-cycle
