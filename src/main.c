@@ -35,7 +35,7 @@ int main()
 		b.t_out,
 		1.4,
 		1,
-		24,
+		0.025,
 		0.92);
 
 	printf("\n\n---- The Compressor Stages ----\n");
