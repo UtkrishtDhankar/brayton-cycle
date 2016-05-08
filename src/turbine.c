@@ -6,15 +6,15 @@
 void print_turbine(struct turbine turb)
 {
 	printf("P_in = %.0f Pa\tT_in = %.2f K\tP_out = %.0f Pa\tT_out = %.2f "
-	       "K\tW_req = %.2f J/s\tX_gain = %.2f J/s\tX_loss = %.2f J/s\n",
-	       turb.p_in,
-	       turb.t_in,
-	       turb.p_out,
-	       turb.t_out,
-	       turb.w_req,
-	       turb.exergy_gain,
-	       turb.exergy_loss
-	       );
+		"K\tW_req = %.2f J/s\tX_gain = %.2f J/s\tX_loss = %.2f J/s\n",
+		turb.p_in,
+		turb.t_in,
+		turb.p_out,
+		turb.t_out,
+		turb.w_req,
+		turb.exergy_gain,
+		turb.exergy_loss
+		);
 }
 
 /*
@@ -53,15 +53,15 @@ struct turbine *simulate_turbine(
 
 		// assuming that turbine is adiabatic
 		tb[i].t_out = pow(1 / max_pressure_ratio, (1 - gamma) / gamma)
-			      * tb[i].t_in;
+				* tb[i].t_in;
 
 		p_prev = tb[i].p_out;
 		t_prev = tb[i].t_out;
 
 		// Assuming turbine work is integral Vdp, with ineficiencies.
 		tb[i].w_req = (1 / stage_efficiency)
-			      * (gas_flow_rate / molecular_mass)
-			      * r_univ * (tb[i].t_out - tb[i].t_in) * gamma / (gamma - 1);
+				* (gas_flow_rate / molecular_mass)
+				* r_univ * (tb[i].t_out - tb[i].t_in) * gamma / (gamma - 1);
 
 		tb[i].exergy_gain = stage_efficiency * tb[i].w_req;
 		tb[i].exergy_loss = tb[i].w_req - tb[i].exergy_gain;
