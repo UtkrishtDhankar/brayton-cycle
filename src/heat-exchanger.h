@@ -1,5 +1,5 @@
-#ifndef COMPRESSOR_H
-#define COMPRESSOR_H
+#ifndef HEAT_EXCHANGER_H
+#define HEAT_EXCHANGER_H
 
 const double efficiency = 0.98;	// efficiency of combustion
 const double c_fuel = 4200000;	// calorific value of fuel in J/kg K.
