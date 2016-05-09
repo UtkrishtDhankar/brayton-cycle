@@ -100,9 +100,9 @@ int main(int argc, char *argv[])
 			       "Work (Compressor) = %lf J/s\n"
 			       "Heat Added = %lf J\n", w_t, w_c, heat_added);
 			printf("Efficiency = %lf\n", n);
-
-			fprintf(data_file, "%f %f\n", n, desired_rp);
 		}
+		fprintf(data_file, "%f %f\n", n, desired_rp);
+		
 		free(c_stages);
 		free(t_stages);
 	}
