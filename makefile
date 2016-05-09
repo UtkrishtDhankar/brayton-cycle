@@ -2,7 +2,7 @@
 
 CC=gcc
 CFLAGS=-c -Wall -std=gnu99
-LFLAGS=-Wall -std=gnu99
+LFLAGS=-lm -Wall -std=gnu99
 
 DFLAGS=-g -Wextra -Werror
 
