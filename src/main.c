@@ -4,11 +4,28 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
-int main()
+void print_usage()
 {
+	printf("Usage:	./brayton-cycle [option]\n\n"
+	       "-v, --verbose\tPrints information about what is being done.\n"
+	       "-h, --help\tPrints this usage/help text.\n");
+}
+
+int main(int argc, char *argv[])
+{
+	if (((argc == 2 && (strcmp(argv[1], "--help") == 0
+			    || strcmp(argv[1], "-h") == 0)) || argc > 2)
+	    || (argc == 2 && !(strcmp(argv[1], "--verbose") == 0
+			       || strcmp(argv[1], "-v") == 0))) {
+		print_usage();
+		return 0;
+	}
+
 	double turbine_t_in;
-	printf("Enter the turbine inlet temperature: ");
+
+	printf("Enter the Turbine Inlet Temperature (T.I.T) in KELVIN: ");
 	scanf("%lf", &turbine_t_in);
 
 	FILE* data_file = fopen("data", "w");
@@ -23,8 +40,7 @@ int main()
 		double molecular_mass = 0.02897;
 		double stage_efficiency = 0.92;
 
-		struct compressor *c_stages =
-		simulate_compressor(
+		struct compressor *c_stages = simulate_compressor(
 			c_num_stages,
 			p_atm,
 			comp_t_inlet,
@@ -48,19 +64,6 @@ int main()
 			molecular_mass,
 			stage_efficiency);
 
-
-		printf("Turbine inlet temp = %lf K\t Pressure ratio = %lf\n",
-				turbine_t_in, desired_rp);
-		/*
-		printf("\n\n---- The Compressor Stages ----\n");
-		for (int i = 0; i < c_num_stages; i++)
-			print_compressor(c_stages[i]);
-
-		printf("\n\n---- The Turbine Stages ----\n");
-		for (int i = 0; i < 8; i++)
-			print_turbine(t_stages[i]);
-		*/
-
 		double n;
 		double w_c = 0;
 		double w_t = 0;
@@ -75,11 +78,31 @@ int main()
 
 		n = (w_t - w_c) / heat_added;
 
-		printf("w_t = %lf\t w_c = %lf\t heat added = %lf\n", w_t, w_c, heat_added);
-		printf("efficiency = %lf\n", n);
+		if (argc == 2 &&
+		    (strcmp(argv[1], "--verbose") == 0
+		     || strcmp(argv[1], "-v") == 0)) {
+			printf("\n\n%i) Turbine inlet temp = %lf K\t Pressure ratio = %lf\n",
+			       ((int)(desired_rp - 14)), turbine_t_in, desired_rp);
 
-		fprintf(data_file, "%f %f\n", n, desired_rp);
+			printf("\n\t\t\t---- The Compressor Stages ----\n"
+			       "==============================================="
+			       "=================================\n");
+			for (int i = 0; i < c_num_stages; i++)
+				print_compressor(c_stages[i]);
 
+			printf("\n\n\t\t\t---- The Turbine Stages ----\n"
+			       "==============================================="
+			       "=================================\n");
+			for (int i = 0; i < 8; i++)
+				print_turbine(t_stages[i]);
+
+			printf("\n\nWork (Turbine) = %lf J/s\n"
+			       "Work (Compressor) = %lf J/s\n"
+			       "Heat Added = %lf J\n", w_t, w_c, heat_added);
+			printf("Efficiency = %lf\n", n);
+
+			fprintf(data_file, "%f %f\n", n, desired_rp);
+		}
 		free(c_stages);
 		free(t_stages);
 	}
