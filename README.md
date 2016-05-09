@@ -6,12 +6,18 @@ To use this software, first clone the repo and go into the directory:
 cd brayton-cycle```
 
 Then, compile the software. You'll need the standard `gcc` compiler and `make`. If you're running any modern Unix based operating system, this should either come preinstalled or be quite easy to install. Here's how to compile the project:
-```make```
+```
+make
+```
 
 Now, to run the software, you simply execute the created executable. On Unix or Unix like systems:
-```./brayton-cycle```
+```
+./brayton-cycle
+```
 
 You can run `make clean` to clean your directory of the executable. The executable will generate a file `data` that holds the simulation data for the plot.
 
 To actually generate the plot, you'll need to run the supplied python script. To run this script, you'll need `matplotlib`, the python package, installed. You can see how to install that [here](http://matplotlib.org/index.html). To run this script and generate the plot, run the following command:
-```python plot.py```
+```
+python plot.py
+```
