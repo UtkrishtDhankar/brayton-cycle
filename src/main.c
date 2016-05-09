@@ -1,5 +1,5 @@
 #include "compressor.h"
-#include "combustion-chamber.h"
+#include "boiler.h"
 #include "turbine.h"
 
 #include <stdlib.h>
