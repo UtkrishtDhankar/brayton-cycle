@@ -24,7 +24,7 @@ int main()
 		0.025,
 		0.92);
 
-	struct combustion_chamber b = simulate_combustion_chamber(
+	struct boiler b = simulate_boiler(
 		c_stages[c_num_stages - 1].t_out,
 		c_stages[c_num_stages - 1].p_out,
 		turbine_t_in,
