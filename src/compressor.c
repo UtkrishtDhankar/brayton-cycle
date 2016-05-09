@@ -37,6 +37,11 @@ int find_num_stages(double desired_rp)
 	return n;
 }
 
+double find_stage_pressure_ratio(int num_stages, double total_desired_rp)
+{
+	double rp = pow(total_desired_rp, 1.0 / num_stages);
+	return rp;
+}
 /*
  * Simulates the compressor for given inputs.
  */
