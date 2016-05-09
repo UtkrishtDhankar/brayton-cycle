@@ -46,6 +46,10 @@ int main()
 			molecular_mass,
 			stage_efficiency);
 
+
+		printf("Turbine inlet temp = %lf K\t Pressure ratio = %lf\n",
+				turbine_t_in, desired_rp);
+		/*
 		printf("\n\n---- The Compressor Stages ----\n");
 		for (int i = 0; i < c_num_stages; i++)
 			print_compressor(c_stages[i]);
@@ -53,6 +57,7 @@ int main()
 		printf("\n\n---- The Turbine Stages ----\n");
 		for (int i = 0; i < 8; i++)
 			print_turbine(t_stages[i]);
+		*/
 
 		double n;
 		double w_c = 0;
@@ -68,12 +73,12 @@ int main()
 
 		n = (w_t - w_c) / heat_added;
 
-		printf("\n\nw_t = %lf\t w_c = %lf\t heat added = %lf\n", w_t, w_c, heat_added);
+		printf("w_t = %lf\t w_c = %lf\t heat added = %lf\n", w_t, w_c, heat_added);
 		printf("efficiency = %lf\n", n);
 
 		free(c_stages);
 		free(t_stages);
 	}
-	
+
 	return 0;
 }
