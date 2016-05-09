@@ -9,12 +9,20 @@
 void print_usage()
 {
 	printf("Usage:	./brayton-cycle [option]\n\n"
-	"-v, --verbose\tPrints information of what is being done.\n"
-	"-h, --help\tPrints this usage/help text.");
+	       "-v, --verbose\tPrints information about what is being done.\n"
+	       "-h, --help\tPrints this usage/help text.\n");
 }
 
 int main(int argc, char *argv[])
 {
+	if (((argc == 2 && (strcmp(argv[1], "--help") == 0
+			    || strcmp(argv[1], "-h") == 0)) || argc > 2)
+	    || (argc == 2 && !(strcmp(argv[1], "--verbose") == 0
+			       || strcmp(argv[1], "-v") == 0))) {
+		print_usage();
+		return 0;
+	}
+
 	double turbine_t_in;
 
 	printf("Enter the Turbine Inlet Temperature (T.I.T) in KELVIN: ");
@@ -71,7 +79,8 @@ int main(int argc, char *argv[])
 		n = (w_t - w_c) / heat_added;
 
 		if (argc == 2 &&
-		    (strcmp(argv[1], "--verbose") || strcmp(argv[1], "-v"))) {
+		    (strcmp(argv[1], "--verbose") == 0
+		     || strcmp(argv[1], "-v") == 0)) {
 			printf("\n\n%i) Turbine inlet temp = %lf K\t Pressure ratio = %lf\n",
 			       ((int)(desired_rp - 14)), turbine_t_in, desired_rp);
 
