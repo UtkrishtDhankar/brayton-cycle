@@ -1,5 +1,5 @@
 #include "compressor.h"
-#include "boiler.h"
+#include "combustion-chamber.h"
 #include "turbine.h"
 
 #include <stdlib.h>
@@ -24,7 +24,7 @@ int main()
 		0.025,
 		0.92);
 
-	struct boiler b = simulate_boiler(
+	struct combustion_chamber b = simulate_combustion_chamber(
 		c_stages[c_num_stages - 1].t_out,
 		c_stages[c_num_stages - 1].p_out,
 		turbine_t_in,
