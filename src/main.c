@@ -4,10 +4,12 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
-int main()
+int main(int argc, char *argv[])
 {
 	double turbine_t_in;
+
 	printf("Enter the turbine inlet temperature: ");
 	scanf("%lf", &turbine_t_in);
 
@@ -23,8 +25,7 @@ int main()
 		double molecular_mass = 0.025;
 		double stage_efficiency = 0.92;
 
-		struct compressor *c_stages =
-		simulate_compressor(
+		struct compressor *c_stages = simulate_compressor(
 			c_num_stages,
 			p_atm,
 			comp_t_inlet,
@@ -50,16 +51,18 @@ int main()
 
 
 		printf("Turbine inlet temp = %lf K\t Pressure ratio = %lf\n",
-				turbine_t_in, desired_rp);
-		/*
-		printf("\n\n---- The Compressor Stages ----\n");
-		for (int i = 0; i < c_num_stages; i++)
-			print_compressor(c_stages[i]);
+		       turbine_t_in, desired_rp);
 
-		printf("\n\n---- The Turbine Stages ----\n");
-		for (int i = 0; i < 8; i++)
-			print_turbine(t_stages[i]);
-		*/
+		if (argc == 2 &&
+		    (strcmp(argv[1], "--verbose") || strcmp(argv[1], "-v"))) {
+			printf("\n\n---- The Compressor Stages ----\n");
+			for (int i = 0; i < c_num_stages; i++)
+				print_compressor(c_stages[i]);
+
+			printf("\n\n---- The Turbine Stages ----\n");
+			for (int i = 0; i < 8; i++)
+				print_turbine(t_stages[i]);
+		}
 
 		double n;
 		double w_c = 0;
