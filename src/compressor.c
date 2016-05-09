@@ -52,9 +52,13 @@ struct compressor *simulate_compressor(
 	double gamma,		// the gamma of the gas.
 	double gas_flow_rate,	// the rate at which gas flows in, in kg/s.
 	double molecular_mass,	// mass of 1 mol of gas molecules, in kg.
-	double stage_efficiency	// efficiency of each stage.
+	double stage_efficiency,// efficiency of each stage
+	double desired_rp	// The desired pressure ratio of the compressor
 ) {
 	struct compressor *cs = malloc (num_stages * sizeof(*cs));
+
+	double pressure_ratio = find_stage_pressure_ratio(
+				num_stages, desired_rp);
 
 	// input pressure and temperature from previous compressor.
 	// initially from atmosphere
@@ -65,10 +69,10 @@ struct compressor *simulate_compressor(
 		cs[i].p_in = p_prev;
 		cs[i].t_in = t_prev;
 
-		cs[i].p_out = cs[i].p_in * max_pressure_ratio;
+		cs[i].p_out = cs[i].p_in * pressure_ratio;
 
 		// assuming that compressor is adiabatic
-		cs[i].t_out = pow (1 / max_pressure_ratio, (1 - gamma) / gamma)
+		cs[i].t_out = pow (1 / pressure_ratio, (1 - gamma) / gamma)
 			* cs[i].t_in;
 
 		p_prev = cs[i].p_out;
