@@ -6,6 +6,13 @@
 #include <stdio.h>
 #include <string.h>
 
+void print_usage()
+{
+	printf("Usage:	./brayton-cycle [option]\n\n"
+	"-v, --verbose\tPrints information of what is being done.\n"
+	"-h, --help\tPrints this usage/help text.");
+}
+
 int main(int argc, char *argv[])
 {
 	double turbine_t_in;
