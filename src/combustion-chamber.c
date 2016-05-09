@@ -1,4 +1,4 @@
-#include "combustion-chamber.h"
+#include "boiler.h"
 
 double calc_fuel_flow_rate(
 	double t_in,		// desired outlet temperature of the gas in K
