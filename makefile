@@ -2,7 +2,7 @@
 
 CC=gcc
 CFLAGS=-c -Wall -std=gnu99
-LFLAGS=-lm -Wall -std=gnu99
+LFLAGS=-Wall -std=gnu99
 
 DFLAGS=-g -Wextra -Werror
 
@@ -31,7 +31,7 @@ debug: LFLAGS+=$(DFLAGS)
 debug: brayton-cycle
 
 brayton-cycle: $(OBJS)
-	$(CC) $(LFLAGS) $(OBJS) -o brayton-cycle
+	$(CC) $(LFLAGS) $(OBJS) -o brayton-cycle -lm
 
 # the following magic code is from here:
 # http://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html
