@@ -42,7 +42,8 @@ struct compressor *simulate_compressor(
 	double gamma,		// the gamma of the gas.
 	double gas_flow_rate,	// the rate at which gas flows in, in kg/s.
 	double molecular_mass,	// mass of 1 mol of gas molecules, in kg.
-	double stage_efficiency	// efficiency of each stage.
+	double stage_efficiency,// efficiency of each stage.
+	double desired_rp	// The desired pressure ratio of the compressor
 );
 
 

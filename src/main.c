@@ -22,7 +22,8 @@ int main()
 		1.4,
 		1,
 		0.025,
-		0.92);
+		0.92,
+		desired_rp);
 
 	struct boiler b = simulate_boiler(
 		c_stages[c_num_stages - 1].t_out,
