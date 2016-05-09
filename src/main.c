@@ -20,7 +20,7 @@ int main()
 		double comp_t_inlet = 273.15 + 15;
 		double gamma = 1.4;
 		double gas_flow_rate = 1;
-		double molecular_mass = 0.025;
+		double molecular_mass = 0.02897;
 		double stage_efficiency = 0.92;
 
 		struct compressor *c_stages =
