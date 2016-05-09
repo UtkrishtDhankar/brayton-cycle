@@ -98,11 +98,12 @@ int main(int argc, char *argv[])
 
 			printf("\n\nWork (Turbine) = %lf J/s\n"
 			       "Work (Compressor) = %lf J/s\n"
-			       "Heat Added = %lf J\n", w_t, w_c, heat_added);
+			       "Heat Added = %lf J\n"
+			       "Mass of fuel required per second = %lf kg/s\n", w_t, w_c, heat_added, b.req_flow_rate);
 			printf("Efficiency = %lf\n", n);
 		}
 		fprintf(data_file, "%f %f\n", n, desired_rp);
-		
+
 		free(c_stages);
 		free(t_stages);
 	}
