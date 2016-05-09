@@ -11,6 +11,8 @@ int main()
 	printf("Enter the turbine inlet temperature: ");
 	scanf("%lf", &turbine_t_in);
 
+	FILE* data_file = fopen("data", "w");
+
 	for (double desired_rp = 14; desired_rp <= 34; desired_rp += 1) {
 		int c_num_stages = find_num_stages(desired_rp);
 
@@ -76,9 +78,13 @@ int main()
 		printf("w_t = %lf\t w_c = %lf\t heat added = %lf\n", w_t, w_c, heat_added);
 		printf("efficiency = %lf\n", n);
 
+		fprintf(data_file, "%f %f\n", n, desired_rp);
+
 		free(c_stages);
 		free(t_stages);
 	}
+
+	fclose(data_file);
 
 	return 0;
 }
