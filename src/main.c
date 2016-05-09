@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
 	double turbine_t_in;
 
-	printf("Enter the turbine inlet temperature: ");
+	printf("Enter the Turbine Inlet Temperature (T.I.T) in KELVIN: ");
 	scanf("%lf", &turbine_t_in);
 
 	FILE* data_file = fopen("data", "w");
@@ -49,21 +49,6 @@ int main(int argc, char *argv[])
 			molecular_mass,
 			stage_efficiency);
 
-
-		printf("Turbine inlet temp = %lf K\t Pressure ratio = %lf\n",
-		       turbine_t_in, desired_rp);
-
-		if (argc == 2 &&
-		    (strcmp(argv[1], "--verbose") || strcmp(argv[1], "-v"))) {
-			printf("\n\n---- The Compressor Stages ----\n");
-			for (int i = 0; i < c_num_stages; i++)
-				print_compressor(c_stages[i]);
-
-			printf("\n\n---- The Turbine Stages ----\n");
-			for (int i = 0; i < 8; i++)
-				print_turbine(t_stages[i]);
-		}
-
 		double n;
 		double w_c = 0;
 		double w_t = 0;
@@ -78,11 +63,30 @@ int main(int argc, char *argv[])
 
 		n = (w_t - w_c) / heat_added;
 
-		printf("w_t = %lf\t w_c = %lf\t heat added = %lf\n", w_t, w_c, heat_added);
-		printf("efficiency = %lf\n", n);
+		if (argc == 2 &&
+		    (strcmp(argv[1], "--verbose") || strcmp(argv[1], "-v"))) {
+			printf("\n\n%i) Turbine inlet temp = %lf K\t Pressure ratio = %lf\n",
+			       ((int)(desired_rp - 14)), turbine_t_in, desired_rp);
 
-		fprintf(data_file, "%f %f\n", n, desired_rp);
+			printf("\n\t\t\t---- The Compressor Stages ----\n"
+			       "==============================================="
+			       "=================================\n");
+			for (int i = 0; i < c_num_stages; i++)
+				print_compressor(c_stages[i]);
 
+			printf("\n\n\t\t\t---- The Turbine Stages ----\n"
+			       "==============================================="
+			       "=================================\n");
+			for (int i = 0; i < 8; i++)
+				print_turbine(t_stages[i]);
+
+			printf("\n\nWork (Turbine) = %lf\n"
+			       "Work (Compressor) = %lf\n"
+			       "Heat Added = %lf\n", w_t, w_c, heat_added);
+			printf("Efficiency = %lf\n", n);
+
+			fprintf(data_file, "%f %f\n", n, desired_rp);
+		}
 		free(c_stages);
 		free(t_stages);
 	}
