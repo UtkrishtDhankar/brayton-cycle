@@ -2,8 +2,10 @@
 Brayton Cycle (`brayton-cycle`) is a piece of software written for the IC 142 Engineering Thermodynamics course. It simulates a gas turbine for different turbine inlet temperatures with compressor ratio varying from `14` to `34`.
 
 To use this software, first clone the repo and go into the directory:
-```git clone https://github.com/FanaticalFighter/brayton-cycle.git
-cd brayton-cycle```
+```
+git clone https://github.com/FanaticalFighter/brayton-cycle.git
+cd brayton-cycle
+```
 
 Then, compile the software. You'll need the standard `gcc` compiler and `make`. If you're running any modern Unix based operating system, this should either come preinstalled or be quite easy to install. Here's how to compile the project:
 ```
@@ -14,6 +16,8 @@ Now, to run the software, you simply execute the created executable. On Unix or 
 ```
 ./brayton-cycle
 ```
+
+If you want to see detailed per stage energy and exergy statistics, please run the above with the `-v` option.  
 
 You can run `make clean` to clean your directory of the executable. The executable will generate a file `data` that holds the simulation data for the plot.
 
