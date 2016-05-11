@@ -1,4 +1,4 @@
-#include "boiler.h"
+#include "combustion_chamber.h"
 
 double efficiency = 0.98;	// efficiency of combustion
 double c_fuel = 4200000;	// calorific value of fuel in J/kg K.
@@ -12,19 +12,19 @@ double calc_fuel_flow_rate(
 	return gas_flow_rate * (c_air / c_fuel) * (t_out - t_in) / efficiency;
 }
 
-struct boiler simulate_boiler(
+struct combustion_chamber simulate_combustion_chamber(
 	double t_in,		// desired outlet temperature of the gas in K
-	double p,		// pressure at which to use boiler
+	double p,		// pressure at which to use combustion chamber
 	double t_out,		// inlet temperature of the gas in K
 	double gas_flow_rate	// flow rate of the gas in kg/s
 ) {
-	struct boiler b;
+	struct combustion_chamber cc;
 
-	b.p = p;
-	b.t_in = t_in;
-	b.t_out = t_out;
+	cc.p = p;
+	cc.t_in = t_in;
+	cc.t_out = t_out;
 
-	b.req_flow_rate = calc_fuel_flow_rate(t_in, t_out, gas_flow_rate);
+	cc.req_flow_rate = calc_fuel_flow_rate(t_in, t_out, gas_flow_rate);
 
-	return b;
+	return cc;
 }

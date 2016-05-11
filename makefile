@@ -10,7 +10,7 @@ RM=rm
 RMFLAGS=-f
 
 # Source files in the project. Append new files here.
-SRCS=src/boiler.c src/compressor.c src/main.c src/turbine.c
+SRCS=src/combustion_chamber.c src/compressor.c src/main.c src/turbine.c
 
 # Create object files list from source files list.
 OBJS= $(SRCS:.c=.o)

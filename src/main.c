@@ -1,5 +1,5 @@
 #include "compressor.h"
-#include "boiler.h"
+#include "combustion_chamber.h"
 #include "turbine.h"
 
 #include <stdlib.h>
@@ -50,15 +50,15 @@ int main(int argc, char *argv[])
 			stage_efficiency,
 			desired_rp);
 
-		struct boiler b = simulate_boiler(
+		struct combustion_chamber cc = simulate_combustion_chamber(
 			c_stages[c_num_stages - 1].t_out,
 			c_stages[c_num_stages - 1].p_out,
 			turbine_t_in,
 			gas_flow_rate);
 
 		struct turbine *t_stages = simulate_turbine(
-			b.p,
-			b.t_out,
+			cc.p,
+			cc.t_out,
 			gamma,
 			gas_flow_rate,
 			molecular_mass,
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 			w_c += c_stages[i].w_req;
 		for (int i = 0; i < 8; i++)
 			w_t += t_stages[i].w_out;
-		heat_added = specific_heat * b.req_flow_rate;
+		heat_added = specific_heat * cc.req_flow_rate;
 
 		n = (w_t - w_c) / heat_added;
 
@@ -99,7 +99,8 @@ int main(int argc, char *argv[])
 			printf("\n\nWork (Turbine) = %lf J/s\n"
 			       "Work (Compressor) = %lf J/s\n"
 			       "Heat Added = %lf J\n"
-			       "Mass of fuel required per second = %lf kg/s\n", w_t, w_c, heat_added, b.req_flow_rate);
+			       "Mass of fuel required per second = %lf kg/s\n"
+			       , w_t, w_c, heat_added, cc.req_flow_rate);
 			printf("Efficiency = %lf\n", n);
 		}
 		fprintf(data_file, "%f %f\n", n, desired_rp);
