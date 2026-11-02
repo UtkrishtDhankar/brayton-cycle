@@ -33,12 +33,32 @@ int main(int argc, char *argv[])
 	for (double desired_rp = 14; desired_rp <= 34; desired_rp += 1) {
 		int c_num_stages = find_num_stages(desired_rp);
 
-		double p_atm = 100000;
-		double comp_t_inlet = 273.15 + 15;
-		double gamma = 1.4;
-		double gas_flow_rate = 1;
-		double molecular_mass = 0.02897;
-		double stage_efficiency = 0.92;
+		/*
+		 * Inlet conditions and working fluid properties. Numbers in
+		 * square brackets refer to the reference list in SOURCES.md.
+		 */
+		double p_atm = 100000;	// compressor inlet pressure, in Pa.
+					// This is 1 bar; the ISO standard
+					// atmosphere is 101325 Pa [7], so
+					// this is a rounded value.
+		double comp_t_inlet = 273.15 + 15;	// 288.15 K = 15 C, the
+					// sea level temperature of the ISO
+					// standard atmosphere [7].
+		double gamma = 1.4;	// ratio of specific heats of air at
+					// 300 K [3].
+		double gas_flow_rate = 1;	// mass flow of air, in kg/s.
+					// Arbitrary sizing assumption: the
+					// cycle is linear in mass flow, so
+					// this only sets the scale of the
+					// work and fuel flow figures and
+					// does not affect the efficiency.
+		double molecular_mass = 0.02897;	// molar mass of air, in
+					// kg/mol [2].
+		double stage_efficiency = 0.92;	// isentropic efficiency of a
+					// single stage. Industrial subsonic
+					// axial stages run at 88 - 92 % [4],
+					// gas turbine components generally at
+					// 85 - 90 % [5].
 
 		struct compressor *c_stages = simulate_compressor(
 			c_num_stages,
@@ -64,14 +84,18 @@ int main(int argc, char *argv[])
 			molecular_mass,
 			stage_efficiency);
 
-		double n;
+		double n;	// thermal efficiency of the cycle.
 		double w_c = 0;
 		double w_t = 0;
 		double heat_added;
+		// Calorific value of the fuel, in J/kg [6]. This repeats c_fuel
+		// from combustion_chamber.c, which should be the single source of
+		// truth for it.
 		double specific_heat = 4200000;
 
 		for (int i = 0; i < c_num_stages; i++)
 			w_c += c_stages[i].w_req;
+		// 8 is the number of turbine stages, fixed in turbine.c.
 		for (int i = 0; i < 8; i++)
 			w_t += t_stages[i].w_out;
 		heat_added = specific_heat * cc.req_flow_rate;

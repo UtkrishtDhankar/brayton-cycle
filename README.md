@@ -25,3 +25,13 @@ To actually generate the plot, you'll need to run the supplied python script. To
 ```
 python plot.py
 ```
+
+## Sources for the constants
+
+Every physical constant used by the simulation (the universal gas constant, the
+specific heat and molar mass of air, the ratio of specific heats, the calorific
+value of the fuel, the compressor stage pressure ratio and efficiency, the
+ambient conditions) is annotated in the source with a bracketed reference
+number. The references themselves are listed in [SOURCES.md](SOURCES.md), which
+also records which numbers are modelling choices rather than sourced values, and
+which approximations the model makes.

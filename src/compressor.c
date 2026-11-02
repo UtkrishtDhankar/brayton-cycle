@@ -1,7 +1,21 @@
 #include "compressor.h"
 
+/*
+ * Constants used by the compressor model.
+ *
+ * Numbers in square brackets refer to the reference list in SOURCES.md.
+ */
+
+// Pressure ratio across a single compressor stage. Axial compressor stages are
+// designed for roughly 1.1 - 1.4 per stage, with industrial subsonic stages at
+// the low end of that range (1.05 - 1.2) [4]. This value is what sets the
+// number of stages needed for a given overall pressure ratio, see
+// find_num_stages() below.
 double max_pressure_ratio = 1.2;
-static double r_univ = 8.314;		// in SI units.
+
+// Universal molar gas constant, in J/(mol K) [1]. The exact value is
+// 8.314462618... J/(mol K); 8.314 is the usual three decimal rounding.
+static double r_univ = 8.314;
 
 /*
  * Prints the details of the compressor

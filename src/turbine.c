@@ -1,8 +1,30 @@
 #include "turbine.h"
 
-static double r_univ = 8.314;		// in SI units.
+/*
+ * Constants used by the turbine model.
+ *
+ * Numbers in square brackets refer to the reference list in SOURCES.md.
+ */
+
+// Universal molar gas constant, in J/(mol K) [1]. Duplicated from
+// compressor.c; the two copies should eventually be shared through a single
+// header.
+static double r_univ = 8.314;
+
+// Number of turbine stages. This is a modelling choice, not a sourced
+// constant: it is picked so that the expansion is split into stages of a
+// believable size for the pressure ratios simulated. Note that main.c assumes
+// this value when it sums the stage work, so the two must be changed together.
 static int num_stages = 8;
-static double p_final = 108000;		//Final pressure.
+
+// Final (exhaust) pressure of the turbine, in Pa.
+// NOTE: this is an assumed value, not a sourced property, and it looks wrong:
+// 108 000 Pa is above the 100 000 Pa compressor inlet pressure used in main.c,
+// which would mean the turbine expands to a pressure higher than the
+// compressor inlet. A real exhaust sits at or slightly below atmospheric. It is
+// left as it is here because changing it changes the simulation output.
+static double p_final = 108000;
+
 /*
  * Prints the details of the turbine
  */
